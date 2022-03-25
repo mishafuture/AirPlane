@@ -7,11 +7,13 @@ import java.io.InputStreamReader;
 
 public class InputData {
     private static BufferedReader sReader;
+    private static long number = 0;
 
     static public Time time() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             Function<String, Integer> convert = Integer::parseInt;
+            System.out.println("Точное время отправки самолета");
             System.out.print("Введите количество часов ");
             int hour = convert.apply(reader.readLine().trim());
             System.out.print("Введите количество минут ");
@@ -29,6 +31,24 @@ public class InputData {
         catch (IOException ex) {
             System.out.println(ex.getMessage());
             return InputData.time();
+        }
+    }
+
+    static public Plane plane() {
+        number++;
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            Function<String, Integer> convert = Integer::parseInt;
+            System.out.print("Введите название самолета ");
+            String name = reader.readLine();
+            System.out.print("введите скорость самолета в км/час ");
+            int speed = convert.apply(reader.readLine().trim());
+            sReader = reader;
+            return new Plane(name, speed);
+        }
+        catch (IOException ioe) {
+            System.out.println(ioe.getMessage());
+            return InputData.plane();
         }
     }
 
